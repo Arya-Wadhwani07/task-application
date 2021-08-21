@@ -30,12 +30,27 @@ MongoClient.connect(connectionURl, { useNewUrlParser : true }, (error,client)=>{
     // }).catch((error)=>{
     //     console.log(error)
     // })
-    db.collection('tasks').updateMany({
-        completed:false
-    },{
-        $set:{
-            completed:true
-        }
+    // db.collection('tasks').updateMany({
+    //     completed:false
+    // },{
+    //     $set:{
+    //         completed:true
+    //     }
+    // }).then((result)=>{
+    //     console.log(result)
+    // }).catch((error)=>{
+    //     console.log(error)
+    // })
+
+    // db.collection('users').deleteMany({
+    //     age:29
+    // }).then((result)=>{
+    //     console.log(result)
+    // }).catch((error)=>{
+    //     console.log(error)
+    // })
+    db.collection("tasks").deleteMany({
+        description:"Buy Grocery"
     }).then((result)=>{
         console.log(result)
     }).catch((error)=>{
