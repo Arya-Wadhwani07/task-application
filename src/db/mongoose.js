@@ -25,6 +25,17 @@ const User = mongoose.model('User',{
             }
         }
     },
+    password:{
+        type:String,
+        required:true,
+        minLength:7,
+        trim:true,
+        validate(value){
+            if(value.toLowerCase().includes("password")){
+                throw new Error("Passowrd should not be password!")
+            }
+        }
+    },
     age: {
         type:Number,
         default:0,
@@ -37,35 +48,38 @@ const User = mongoose.model('User',{
 })
 
 // Performing the insert and save operation
-const me = new User({
-    name:"    Andrew  ",
-    email:"MYEMAIL@MEAD.IO  "
-})
+// const me = new User({
+//     name:"    Andrew  ",
+//     email:"MYEMAIL@MEAD.IO  ",
+//     password:"phone098!"
+// })
 
-me.save().then(()=>{
-    console.log(me)
-}).catch((error)=>{
-    console.log("Error!",error)
-})
+// me.save().then(()=>{
+//     console.log(me)
+// }).catch((error)=>{
+//     console.log("Error!",error)
+// })
 
 // Creating the schema of Task table
 const Task = mongoose.model('Task',{
     description:{
-        type: String
+        type: String,
+        trim:true,
+        required:true
     },
     completed:{
-        type:Boolean
+        type:Boolean,
+        default:false
     }
 })
 
 // Performing the insert and save on Task Table
-// const task = new Task({
-//     description:'Learn the Mongoose Library',
-//     completed:false
-// })
+const task = new Task({
+    description:"  Eat Lunch"
+})
 
-// task.save().then(()=>{
-//     console.log(task)
-// }).catch((error)=>{
-//     console.log("Error!",error)
-// })
+task.save().then(()=>{
+    console.log(task)
+}).catch((error)=>{
+    console.log("Error!",error)
+})
