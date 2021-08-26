@@ -48,6 +48,8 @@ const userSchema = new mongoose.Schema({
             required:true
         }
     }]
+}, {
+    timestamps:true
 })
 
 userSchema.virtual('tasks',{
@@ -88,6 +90,7 @@ userSchema.statics.findByCredentials = async(email,password)=>{
     return user
 }
 
+// Hash the password while saving the user
 userSchema.pre('save',async function(next){
     const user = this
 
@@ -98,7 +101,7 @@ userSchema.pre('save',async function(next){
     next()
 })
 
-
+// Middleware to remove all the tasks associated to a user when removed
 userSchema.pre('remove', async function(next){
     const user = this
     await Task.deleteMany({owner:user._id})
