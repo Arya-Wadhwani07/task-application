@@ -1,5 +1,6 @@
 const express = require('express')
 const User = require("../models/user")
+const auth = require('../middleware/auth')
 const router = new express.Router()
 
 // POST route for creating new users and saving in the database
@@ -28,7 +29,7 @@ router.post('/users/login',async (req,res)=>{
 })
 
 // GET route for getting all the existing users
-router.get("/users",async (req,res)=>{
+router.get("/users",auth,async (req,res)=>{
 
     try{
         const users = await User.find({})
